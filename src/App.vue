@@ -1,9 +1,23 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
+import { initFlowbite } from 'flowbite'
 import FileInput from './components/FileInput.vue';
+
+onMounted(() => {
+    initFlowbite();
+})
+
+const callback = (response) => {
+  // This callback will be triggered when the user selects or login to
+  // his Google account from the popup
+  console.log("Handle the response", response)
+}
 </script>
 
 <template>
-  <FileInput msg="Put Your CSV Here" />
+    <div>
+  <GoogleLogin :callback="callback"/>
+    </div>
 </template>
 
 <style scoped>
@@ -19,4 +33,4 @@ import FileInput from './components/FileInput.vue';
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }
-</style>
+</style>./components/GoogleLogin.vue
