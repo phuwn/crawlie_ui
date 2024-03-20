@@ -1,12 +1,15 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { userInfoStore } from "../store/userInfoStore";
 
+const router = useRouter();
 const { name, email, avatar } = storeToRefs(userInfoStore())
 const { update } = userInfoStore()
 
 function signOut() {
 	update({})
+	router.replace({ path: '/' })
 }
 </script>
 

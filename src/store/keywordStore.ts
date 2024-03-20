@@ -50,7 +50,9 @@ export const keywordStore = defineStore("keyword", () => {
     isLoading.value = true;
     try {
       const response = await axios.get(
-        `http://localhost:8089/v1/keywords?limit=${limit.value}&offset=${offset.value}&q=${q.value}`,
+        `${import.meta.env.VITE_SERVER_URL}/v1/keywords?limit=${
+          limit.value
+        }&offset=${offset.value}&q=${q.value}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken.value}`,
@@ -58,7 +60,6 @@ export const keywordStore = defineStore("keyword", () => {
         }
       );
       if (response.status !== 200) {
-        console.log(response);
         throw new Error(`API request failed with status ${response.status}`);
       }
       rawData.value = response.data;
@@ -90,7 +91,7 @@ export const keywordStore = defineStore("keyword", () => {
       const fd = new FormData();
       fd.append("file", file);
       const response = await axios.post(
-        "http://localhost:8089/v1/keywords",
+        `${import.meta.env.VITE_SERVER_URL}/v1/keywords`,
         fd,
         {
           headers: {

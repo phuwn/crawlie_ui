@@ -68,4 +68,7 @@ onBeforeMount(() => fetchKeywords())
 		</table>
 		<Pagination />
 	</div>
+	<div v-else>
+		No Keywords found, try upload some
+	</div>
 </template>

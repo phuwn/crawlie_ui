@@ -11,16 +11,16 @@ const { update } = userInfoStore()
 
 const login = () => {
   googleAuthCodeLogin().then((response) => {
-    axios.post("http://localhost:8089/v1/auth", {
+    axios.post(`${import.meta.env.VITE_SERVER_URL}/v1/auth`, {
       code: response.code,
-      redirect_uri: "http://localhost:5173"
+      redirect_uri: import.meta.env.VITE_WEBSITE_URL
     })
       .then(resp => {
         const data = resp.data
         data.loggedIn = true
         update(data)
 
-        router.replace({ path: '/' })
+        router.replace({ path: '/list-keywords' })
       })
       .catch((err) => {
         if (err.response) {
