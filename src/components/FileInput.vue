@@ -1,18 +1,24 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-defineProps<{ msg?: string }>()
-
-const count = ref(0)
+import axios from 'axios';
+import { ref } from 'vue';
+import { userInfoStore } from "../store/userInfoStore";
+defineProps<{ msg?: string, uploadFile?: (any) => void }>()
+const { accessToken, update } = userInfoStore()
+const fileInput = ref<HTMLInputElement | null>(null)
 </script>
 
 <template>
-	<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">{{ msg }}</label>
-	<input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
+	<div>
+		<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">{{ msg }}</label>
+		<input id="file_input" type="file" ref="fileInput" style="display:none" @change="uploadFile">
+		<button type="button"
+			class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+			@click="fileInput?.click()">Upload File</button>
+	</div>
 </template>
 
 <style scoped>
 .read-the-docs {
-  color: #888;
+	color: #888;
 }
 </style>
