@@ -2,22 +2,15 @@
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
 import { RouterView } from 'vue-router'
-import FileInput from './components/FileInput.vue';
 import Header from './components/Header.vue';
 
 onMounted(() => {
-    initFlowbite();
+  initFlowbite();
 })
-
-const callback = (response) => {
-  // This callback will be triggered when the user selects or login to
-  // his Google account from the popup
-  console.log("Handle the response", response)
-}
 </script>
 
 <template>
-  <Header/>
+  <Header />
   <RouterView />
 </template>
 
