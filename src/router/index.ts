@@ -34,8 +34,12 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   const userInfoJson = localStorage.getItem("user_info");
   const userInfo = JSON.parse(`${userInfoJson}`);
-  if (!userInfo.loggedIn && to.path != "/" && to.path != "/login") {
+  if (userInfo && !userInfo.loggedIn && to.path != "/" && to.path != "/login") {
     return { path: "/" };
+  }
+
+  if (userInfo && userInfo.loggedIn && to.path == "/") {
+    return { path: "/list-keywords" };
   }
 });
 

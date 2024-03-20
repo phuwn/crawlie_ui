@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import GoogleLoginButton from '../components/GoogleLoginButton.vue';
 </script>
 
