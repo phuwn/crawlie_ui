@@ -49,7 +49,7 @@ onBeforeMount(() => fetchKeywords())
 					v-for="{ name, ad_words_count, links_count, search_results_count, status } in    keywords   " :key="name">
 					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-center"> {{ name }}
 					</th>
-					<td class="px-6 py-4 text-center"> {{ status }}
+					<td class="px-6 py-4 text-center"> {{ status == 1 ? 'crawled' : 'uncrawled' }}
 					</td>
 					<td class="px-6 py-4 text-center"> {{ ad_words_count }}
 					</td>
