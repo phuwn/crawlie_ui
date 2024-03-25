@@ -68,14 +68,15 @@ export const keywordStore = defineStore("keyword", () => {
         switch (err.response.status) {
           case 400:
             error.value = err.response.data.error;
+            break;
           case 401:
             update({});
             router.replace({ path: "/" });
             break;
         }
       }
+      error.value = err.message;
       console.error("Error fetching keywords:", err);
-      error.value = err;
     } finally {
       isLoading.value = false;
     }
@@ -84,7 +85,6 @@ export const keywordStore = defineStore("keyword", () => {
   async function uploadKeywordsFile(e) {
     try {
       const file = e.target.files[0];
-      console.log(file.name);
       if (file.name.split(".").pop() != "csv") {
         throw new Error(`File upload should be in csv format`);
       }
@@ -104,24 +104,28 @@ export const keywordStore = defineStore("keyword", () => {
         console.log(response);
         throw new Error(`API request failed with status ${response.status}`);
       }
+      error.value = "";
       fetchKeywords();
     } catch (err: any) {
       if (err.response) {
         switch (err.response.status) {
           case 400:
             error.value = err.response.data.error;
+            break;
           case 401:
             update({});
             router.replace({ path: "/" });
             break;
         }
+        return;
       }
-      console.error("Error fetching keywords:", err);
-      error.value = err;
+      error.value = err.message;
+      console.error("Error uploading keywords file:", err);
     }
   }
 
   return {
+    error,
     count,
     q,
     keywords,
